@@ -26,17 +26,6 @@ body {
     display: block;
 }
 
-/* Версия слева вверху */
-#version {
-    position: fixed;
-    top: 8px;
-    left: 10px;
-    font-family: "Comic Sans MS", "Comic Sans", cursive;
-    font-size: 12px;
-    opacity: 0.7;
-    z-index: 1001;
-}
-
 /* Header */
 header {
     height: 120px;
@@ -58,12 +47,12 @@ main {
     margin-right: 220px; /* резервируем место для sidebar справа */
 }
 
-/* Контент слева (не центрируется) */
+/* Контент: не центрируется */
 #thread-section, #post-section {
     width: 100%;
     max-width: none;
-    margin: 0; /* убрать auto-центрирование */
-    text-align: left; /* выравнивание по левому краю */
+    margin: 0;
+    text-align: left;
 }
 
 .thread-creation {
