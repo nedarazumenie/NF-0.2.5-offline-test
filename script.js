@@ -9,14 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const themeToggle = document.getElementById("theme-toggle");
     if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
 
-    const createThreadBtn = document.getElementById("create-thread-btn");
-    if (createThreadBtn) createThreadBtn.addEventListener("click", createThread);
-
     const addPostBtn = document.getElementById("add-post-btn");
     if (addPostBtn) addPostBtn.addEventListener("click", addPost);
 
     const createPlusBtn = document.getElementById("create-plus-btn");
-    if (createPlusBtn) createPlusBtn.addEventListener("click", createThreadViaPlus);
+    if (createPlusBtn) createPlusBtn.addEventListener("click", createThread);
 
     // Интересы (категории)
     document.querySelectorAll('#interests-nav [data-interest]').forEach(btn => {
@@ -25,9 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function acceptPrivacy() {
-    try {
-        localStorage.setItem("privacyAccepted", "true");
-    } catch (e) { /* localStorage может быть недоступен */ }
+    try { localStorage.setItem("privacyAccepted", "true"); } catch (e) {}
     const overlay = document.getElementById("privacy-overlay");
     if (overlay) overlay.style.display = "none";
 }
@@ -47,9 +42,7 @@ function checkPrivacyAccepted() {
 
 function loadTheme() {
     let theme = "dark";
-    try {
-        theme = localStorage.getItem("theme") || "dark";
-    } catch (e) { theme = "dark"; }
+    try { theme = localStorage.getItem("theme") || "dark"; } catch (e) { theme = "dark"; }
     document.body.classList.toggle("dark-theme", theme === "dark");
 }
 
@@ -57,11 +50,11 @@ function toggleTheme() {
     try {
         const theme = localStorage.getItem("theme") === "dark" ? "light" : "dark";
         localStorage.setItem("theme", theme);
-    } catch (e) { /* ignore */ }
+    } catch (e) {}
     loadTheme();
 }
 
-// --- LocalStorage key helpers (scope)
+// LocalStorage key helpers
 function threadsKey(interest) {
     return `threads:${encodeURIComponent(interest)}`;
 }
@@ -95,11 +88,7 @@ function loadThreads(interest) {
     if (sidebarList) sidebarList.innerHTML = "";
 
     let threads = [];
-    try {
-        threads = JSON.parse(localStorage.getItem(threadsKey(interest)) || "[]");
-    } catch (e) {
-        threads = [];
-    }
+    try { threads = JSON.parse(localStorage.getItem(threadsKey(interest)) || "[]"); } catch (e) { threads = []; }
 
     threads.forEach(thread => {
         if (threadList) threadList.appendChild(makeThreadElement(thread));
@@ -111,37 +100,15 @@ function loadThreads(interest) {
     if (postSection) postSection.style.display = "none";
     currentThread = "";
 
-    // Скрыть плюс (появляетcя при выборе треда)
-    setCreatePlusVisible(false);
+    // Показываем плюс (создание треда теперь через плюс)
+    setCreatePlusVisible(true);
 
     // Обновить подсветку
     highlightActiveThread();
 }
 
-// Создание треда через поле ввода
+// Создание треда (через плюс)
 function createThread() {
-    const titleInput = document.getElementById("thread-title");
-    const title = titleInput ? titleInput.value.trim() : "";
-
-    if (!currentInterest) return alert("Сначала выберите интерес (раздел).");
-    if (!title) return alert("Введите название треда!");
-
-    let threads = [];
-    try {
-        threads = JSON.parse(localStorage.getItem(threadsKey(currentInterest)) || "[]");
-    } catch (e) { threads = []; }
-
-    if (threads.includes(title)) return alert("Тред с таким названием уже существует в этом разделе.");
-
-    threads.push(title);
-    try { localStorage.setItem(threadsKey(currentInterest), JSON.stringify(threads)); } catch (e) {}
-    if (titleInput) titleInput.value = "";
-    loadThreads(currentInterest);
-    openThread(title);
-}
-
-// Создание треда через плюс-иконку
-function createThreadViaPlus() {
     if (!currentInterest) return alert("Сначала выберите интерес (раздел).");
     const title = prompt("Название нового треда:");
     if (!title || !title.trim()) return;
@@ -166,10 +133,7 @@ function openThread(thread) {
 
     loadPosts();
 
-    // показать плюс
-    setCreatePlusVisible(true);
-
-    // подсветить в sidebar и main списке
+    // подсветить
     highlightActiveThread();
 }
 
