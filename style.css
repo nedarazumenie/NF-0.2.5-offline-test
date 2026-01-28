@@ -1,12 +1,20 @@
+/* Светлая тема по умолчанию */
 body {
     font-family: Arial, sans-serif;
-    background-color: #1e1e1e;
-    color: white;
+    background-color: #ffffff;
+    color: #222;
     text-align: center;
     margin: 0;
     padding: 0;
 }
 
+/* Тёмная тема */
+body.dark-theme {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+/* Кнопки */
 button {
     background-color: #4CAF50;
     color: white;
@@ -23,29 +31,60 @@ button:hover {
     transform: scale(1.05);
 }
 
+/* Учитываем тёмную тему для кнопок (если нужно ч��ть светлее) */
+body.dark-theme button {
+    background-color: #3a8b3a;
+}
+body.dark-theme button:hover {
+    background-color: #2f7a2f;
+}
+
 #thread-list, #post-list {
     list-style: none;
     padding: 0;
+    margin: 10px auto;
+    max-width: 800px;
 }
 
 #thread-list li, #post-list li {
-    background: #333;
+    background: #f0f0f0;
     padding: 10px;
-    margin: 5px;
+    margin: 8px;
     border-radius: 10px;
     cursor: pointer;
     transition: background 0.3s;
+    text-align: left;
+}
+
+/* Тёмная тема для элементов списка */
+body.dark-theme #thread-list li,
+body.dark-theme #post-list li {
+    background: #333;
+    color: #fff;
 }
 
 #thread-list li:hover, #post-list li:hover {
+    background: #e6e6e6;
+}
+
+body.dark-theme #thread-list li:hover,
+body.dark-theme #post-list li:hover {
     background: #444;
 }
 
 #post-section {
     margin-top: 20px;
     padding: 15px;
-    border: 1px solid #444;
+    border: 1px solid #ddd;
     display: none;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+}
+
+body.dark-theme #post-section {
+    border-color: #444;
 }
 
 img {
@@ -60,7 +99,7 @@ img {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -76,6 +115,28 @@ img {
     max-width: 400px;
 }
 
+body.dark-theme .privacy-box {
+    background: #222;
+    color: #fff;
+}
+
 .privacy-box button {
     margin-top: 10px;
+}
+
+/* Replies */
+.replies-list {
+    list-style: none;
+    padding-left: 10px;
+    margin-top: 8px;
+}
+.replies-list li {
+    background: rgba(0,0,0,0.05);
+    padding: 6px;
+    margin: 4px 0;
+    border-radius: 6px;
+}
+
+body.dark-theme .replies-list li {
+    background: rgba(255,255,255,0.04);
 }
