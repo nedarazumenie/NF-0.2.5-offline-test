@@ -3,20 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V-0.2.3.1</title>
+    <title>V-0.2.4</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="privacy-overlay">
         <div class="privacy-box">
             <h2>условия использования</h2>
-            <p>Нажимая на кнопку "Принять", вы полностью снимаете ответственность за совершаемые действия с владельца сайта. Любое нарушение закона является вашей виной.</p>
+            <p>Нажимая на кнопку "Принять", вы полностью снимаете ответственность за совершаемые действия с владельцем и пользователями сервиса. Использование сайта означает согласие с правилами и условиями.</p>
             <button id="accept-privacy">Принять</button>
         </div>
     </div>
 
     <header>
-        <h1>V-0.2.3.1</h1>
+        <h1>V-0.2.4</h1>
         <button id="theme-toggle">Сменить тему</button>
     </header>
 
@@ -34,7 +34,7 @@
         <section id="thread-section">
             <h2 id="current-interest">Выберите интерес</h2>
             <input type="text" id="thread-title" placeholder="Название треда">
-            <button onclick="createThread()">Создать тред</button>
+            <button id="create-thread-btn">Создать тред</button>
             <ul id="thread-list"></ul>
         </section>
 
@@ -42,7 +42,7 @@
             <h3 id="thread-title-display"></h3>
             <textarea id="post-content" placeholder="Введите сообщение..."></textarea>
             <input type="file" id="media-input" accept="image/*">
-            <button onclick="addPost()">Добавить пост</button>
+            <button id="add-post-btn">Добавить пост</button>
             <ul id="post-list"></ul>
         </section>
     </main>
